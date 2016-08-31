@@ -33,24 +33,26 @@ public class TennisGame {
 		
 		if (playerPoints == opponentPoints && playerPoints >= 3) {
 			return CallId.DEUCE;
-		} else if (playerPoints >= 4 && (playerPoints - opponentPoints >= 2)) {
+		} else if (playerPoints >= 4 &&
+				  (playerPoints - opponentPoints >= 2)) {
 			return CallId.GAME;
-		} else if (opponentPoints >= 4 && (playerPoints - opponentPoints >= 2)) {
+		} else if (opponentPoints >= 4 &&
+				  (opponentPoints - playerPoints >= 2)) {
 			return CallId.ADVANTAGE_OUT;
 		} else if (playerPoints >= 3 && opponentPoints >= 3) {
 			if (playerPoints > opponentPoints) {
 				return CallId.ADVANTAGE_IN;
-			} else if (opponentPoints > playerPoints) {
+			} else {
 				return CallId.ADVANTAGE_OUT;
 			}
-		}
-		
-		switch (playerPoints) {
-			case 0:  return CallId.LOVE;
-			case 1:  return CallId.FIFTEEN;
-			case 2:  return CallId.THIRTY;
-			case 3:  return CallId.FORTY;
-			default: return CallId.UNKNOWN;
+		} else {
+			switch (playerPoints) {
+				case 0:  return CallId.LOVE;
+				case 1:  return CallId.FIFTEEN;
+				case 2:  return CallId.THIRTY;
+				case 3:  return CallId.FORTY;
+				default: return CallId.UNKNOWN;
+			}
 		}
 	}
 
