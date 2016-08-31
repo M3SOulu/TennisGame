@@ -84,10 +84,6 @@ public class TennisGame implements ITennisGame {
 			} else {
 				printScore();
 			}
-			//x gameen asti oleva matsi funkkari
-			//commit
-			//push
-			//create pull request
 		}
 	}
 	
