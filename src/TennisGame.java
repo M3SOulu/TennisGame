@@ -33,11 +33,9 @@ public class TennisGame {
 		
 		if (playerPoints == opponentPoints && playerPoints >= 3) {
 			return CallId.DEUCE;
-		} else if (playerPoints >= 4 &&
-				  (playerPoints - opponentPoints >= 2)) {
+		} else if (playerPoints >= 4 && playerPoints - opponentPoints >= 2)) {
 			return CallId.GAME;
-		} else if (opponentPoints >= 4 &&
-				  (opponentPoints - playerPoints >= 2)) {
+		} else if (opponentPoints >= 4 && (opponentPoints - playerPoints >= 2)) {
 			return CallId.ADVANTAGE_OUT;
 		} else if (playerPoints >= 3 && opponentPoints >= 3) {
 			if (playerPoints > opponentPoints) {
