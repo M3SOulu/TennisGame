@@ -32,15 +32,15 @@ public class Demo {
 				judge(PlayerId.PLAYER_2);
 				
 			} while (
-				mGame.getCall(PlayerId.PLAYER_1) != CallId.GAME &&
-				mGame.getCall(PlayerId.PLAYER_2) != CallId.GAME);
+				mGame.getCall(PlayerId.PLAYER_1) != CallId.WIN &&
+				mGame.getCall(PlayerId.PLAYER_2) != CallId.WIN);
 			
 			System.out.println("--------------------");
 		}
 	}
 	
 	void score(PlayerId player) {
-		System.out.println("Player " + getPlayerString(player) + " scores");
+		System.out.println("-- Player " + getPlayerString(player) + " scores");
 		
 		mGame.playerScored(player);
 	}
@@ -64,8 +64,10 @@ public class Demo {
 				return "Thirty";
 			case FORTY:
 				return "Forty";
-			case GAME:
-				return "Game";
+			case WIN:
+				return "Win";
+			case LOSE:
+				return "Lose";
 			case DEUCE:
 				return "Deuce";
 			case ADVANTAGE_IN:
