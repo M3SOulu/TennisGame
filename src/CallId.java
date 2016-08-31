@@ -1,0 +1,12 @@
+
+public enum CallId {
+	LOVE,
+	FIFTEEN,
+	THIRTY,
+	FORTY,
+	GAME,
+	DEUCE,
+	ADVANTAGE_IN,
+	ADVANTAGE_OUT,
+	UNKNOWN
+}

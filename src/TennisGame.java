@@ -1,22 +1,5 @@
 
 public class TennisGame {
-	public enum PlayerId {
-		PLAYER_1,
-		PLAYER_2
-	}
-	
-	public enum CallId {
-		LOVE,
-		FIFTEEN,
-		THIRTY,
-		FORTY,
-		GAME,
-		DEUCE,
-		ADVANTAGE_IN,
-		ADVANTAGE_OUT,
-		UNKNOWN
-	}
-	
 	private int points[] = { 0, 0 };
 	
 	public void playerScored(PlayerId player) {
@@ -33,7 +16,7 @@ public class TennisGame {
 		
 		if (playerPoints == opponentPoints && playerPoints >= 3) {
 			return CallId.DEUCE;
-		} else if (playerPoints >= 4 && playerPoints - opponentPoints >= 2)) {
+		} else if (playerPoints >= 4 && (playerPoints - opponentPoints >= 2)) {
 			return CallId.GAME;
 		} else if (opponentPoints >= 4 && (opponentPoints - playerPoints >= 2)) {
 			return CallId.ADVANTAGE_OUT;
@@ -60,5 +43,10 @@ public class TennisGame {
 	
 	private int getOpponentIndex(PlayerId player) {
 		return (player == PlayerId.PLAYER_1) ? 1 : 0;
+	}
+	
+	public static void main(String [] args) {
+		Demo demo = new Demo();
+		demo.run();
 	}
 }
