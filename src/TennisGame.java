@@ -6,7 +6,11 @@ import java.lang.Integer;
 
 public class TennisGame {
 	private final int PLAYER_AMOUNT = 2;
+	private final int PLAYER_1 = 0;
+	private final int PLAYER_2 = 1;
 	private int[] scores;
+	private boolean noAdvantage;
+	private int[] advantage;
 	
 	public static void main(String[] args) {
 		TennisGame aTennisGame = new TennisGame();
@@ -23,9 +27,12 @@ public class TennisGame {
 	
 	private void setup() {
 		scores = new int[PLAYER_AMOUNT];
+		advantage = new int[PLAYER_AMOUNT];
+		noAdvantage = true;
 		
-		for (int i = 0; i < scores.length; i++) {
+		for (int i = 0; i < PLAYER_AMOUNT; i++) {
 			scores[i] = 0;
+			advantage[i] = 0;
 		}
 	}
 	
@@ -59,12 +66,23 @@ public class TennisGame {
 			scores[Integer.parseInt(scoredPlayer) - 1] = scores[Integer.parseInt(scoredPlayer) - 1] + 15;
 		} else if (scores[Integer.parseInt(scoredPlayer) - 1] == 30) {
 			scores[Integer.parseInt(scoredPlayer) - 1] = scores[Integer.parseInt(scoredPlayer) - 1] + 10;
-		} else if (scores[Integer.parseInt(scoredPlayer) - 1] == 40) {
-			scores[Integer.parseInt(scoredPlayer) - 1] = scores[Integer.parseInt(scoredPlayer) - 1] + 5;
 		}
 		
-		//need to handle advantage
-		if (40 == scores[Integer.parseInt(scoredPlayer) - 1]) {
+		if (false == noAdvantage) {
+			advantage[PLAYER_1] = 0;
+			advantage[PLAYER_2] = 0;
+			noAdvantage = true;
+		}
+
+		if ((scores[PLAYER_1] == 40) && (scores[PLAYER_2] == 40)) {
+			noAdvantage = false;
+			
+			advantage[Integer.parseInt(scoredPlayer) - 1] = 1;
+		}
+		
+		//handle advantage
+		if ((40 == scores[Integer.parseInt(scoredPlayer) - 1] && noAdvantage) ||
+				(40 == scores[Integer.parseInt(scoredPlayer) - 1] && advantage[Integer.parseInt(scoredPlayer) - 1] == 1)) {
 			return true;
 		}
 		
