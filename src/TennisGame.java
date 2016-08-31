@@ -1,6 +1,17 @@
 public class TennisGame {
 	private enum Score {
-		LOVE, FIFTEEN, THIRTY, FORTY, ADVANTAGE, WIN;
+		LOVE,
+		FIFTEEN,
+		THIRTY,
+		FORTY,
+		ADVANTAGE,
+		WIN {
+			@Override
+			public Score next() {
+				// You can't score beyond winning
+				return this;
+			}
+		};
 		
 		public Score next() {
 			return Score.values()[this.ordinal() + 1];
