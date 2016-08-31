@@ -25,7 +25,7 @@ public class TennisGame {
 		else if (i.counter == 3) {
 			score = tennis[3];
 		}
-		else {
+		else if (i.counter == 4){
 			score  = tennis[3];
 			adv = true;
 		}
@@ -49,19 +49,28 @@ public class TennisGame {
 			player = (int) (Math.random() * 2);
 			
 			if (player == 0) {
+				if ((pl1.counter == 3) && (pl2.counter == 4)) {
+					pl2.counter--;
+				}
 				pl1.counter++;
+				
 			}
-			else {
+			else if (player == 1){
+				if ((pl2.counter == 3) && (pl1.counter == 4)) {
+					pl1.counter--;
+				}
 				pl2.counter++;
 			}
 			
-			if ((pl1.counter == 4) && (pl2.counter < 4)) {
+			if ((pl1.counter == 4) && (pl2.counter < 3)) {
 				winner = true;
 				first = true;
+				pl1.counter--;
 			}
-			else if ((pl2.counter == 4) && (pl1.counter < 4)) {
+			else if ((pl2.counter == 4) && (pl1.counter < 3)) {
 				winner = true;
 				second = true;
+				pl2.counter--;
 			}
 			else if ((pl1.counter == 5)) {
 				winner = true;
