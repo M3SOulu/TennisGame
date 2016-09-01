@@ -17,6 +17,7 @@ public class TennisGame {
 		scores.add(2, "thirty");
 		scores.add(3, "forty");
 		scores.add(4, "win");
+		scores.add(5, "advantage");
 	}
 	public static void main(String[] args) {
 		boolean p1=false;
@@ -26,12 +27,15 @@ public class TennisGame {
 		System.out.println(getScore());
 
 		do{
+
+
+
 			makeGoal();
-			
+
 			System.out.println(getScore());
-			
-			
-			
+
+
+
 			if(player1==4) p1=true;
 			if(player2==4) p2=true;
 
@@ -50,18 +54,48 @@ public class TennisGame {
 		int i=0;
 		boolean a=false;
 		do{
+
 			System.out.println("Who make the goal?");
 			i= in.nextInt();
-			if (i==1) {
-				player1++;
-				System.out.println(player1);
-				a=true;
-			}else if(i==2){
-				player2++;
-				a=true;
 
+
+			if(player1==3&&player2==3){
+				if (i==1) {
+					player1= player1+2;
+					System.out.println(player1);
+					a=true;
+				}else if(i==2){
+					player2=player2+2;
+					a=true;
+
+				}
+
+
+			}else if(player1==5&&player2==3){
+				if (i==1){ player1=4;
+				}else player1=3;
+				break;
+
+			}else if(player1==3&&player2==5){
+				if (i==2){ player2=4;}
+				else player2=3;
+				break;
+
+
+			}else{
+
+
+
+				if (i==1) {
+					player1++;
+					System.out.println(player1);
+					a=true;
+				}else if(i==2){
+					player2++;
+					a=true;
+
+				}
 			}
-
 		}while(!a);
 	}
 }
