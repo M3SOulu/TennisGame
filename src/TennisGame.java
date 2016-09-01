@@ -34,6 +34,7 @@ public class TennisGame {
 	public String calcScore(int player) {
 		// Regular scores
 		if (playerOneScore < 4 && playerTwoScore < 4) {
+			// Handle 40 - 40
 			if (playerOneScore == 3 && playerTwoScore == 3) {
 				return "Deuce";
 			}
@@ -52,7 +53,7 @@ public class TennisGame {
 			}		
 			return "" + score;
 		} 
-		// Advantage
+		// Advantage cases
 		else {
 			if (playerOneScore == playerTwoScore) {
 				return "Deuce";
