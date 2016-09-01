@@ -4,16 +4,16 @@ public class player extends TennisGame {
 	private String name=null;
 	
 	
-	public void newPlayer(String name){
+	public player(String name){
 		this.name=name;
 		this.score="love";
 		
 	}
-	public void newPlayer(String name,String score){
+	public player(String name,String score){
 		this.name=name;
 		this.score=score;
 	}
-	public String getScore(){
+	public String getplayerScore(){
 		return this.score;
 	}
 	
@@ -24,7 +24,7 @@ public class player extends TennisGame {
 	private void win(){
 		this.setScore("love");
 		this.other().setScore("love");
-		System.out.println(this + "wins the game");
+		System.out.println(this.name + " wins the game");
 	}
 	private player other(){
 		if(this.name=="player1") return player2;
@@ -38,9 +38,9 @@ public class player extends TennisGame {
 			else{ 
 				if (this.score=="30") this.setScore("40");
 				else { 
-					if(TennisGame.score()=="deuce") this.setScore("adv");
+					if(TennisGame.getScore()=="deuce") this.setScore("adv");
 					else{
-						if(this.score=="40"&&this.other().score=="adv") {TennisGame.score()="deuce"; this.other().setScore("40");  }
+						if(this.score=="40"&&this.other().score=="adv") { this.other().setScore("40");  }
 						else{this.win();}
 
 					}
