@@ -21,6 +21,10 @@ public class TennisGame {
 			result = PLAYER_ONE_WINS;
 		} else if (player2Score - player1Score >= 2 && player2Score > 3) {
 			result = PLAYER_TWO_WINS;
+		} else if (player1Score >= 3 && player2Score >= 3 && player1Score - player2Score == 1) {
+			result = ADVANTAGE + "-" + getScoreToDisplay(player2Score);
+		} else if (player1Score >= 3 && player2Score >= 3 && player2Score - player1Score == 1) {
+			result = getScoreToDisplay(player1Score) + "-" + ADVANTAGE;
 		} else {
 			result = getScoreToDisplay(player1Score) + "-" + getScoreToDisplay(player2Score);
 		}
@@ -47,11 +51,8 @@ public class TennisGame {
 		case 2:
 			result = SCORE_TWO;
 			break;
-		case 3:
+		default:
 			result = SCORE_THREE;
-			break;
-		case 4:
-			result = ADVANTAGE;
 			break;
 		}
 
@@ -64,18 +65,19 @@ public class TennisGame {
 		oneTennisGame.player1Scored();
 		oneTennisGame.player1Scored();
 		oneTennisGame.player2Scored();
+		oneTennisGame.player2Scored();
+		oneTennisGame.player2Scored();
+		oneTennisGame.player1Scored();
 		oneTennisGame.player1Scored();
 		System.out.println("Current Score is: " + oneTennisGame.getCurrentScore());
 	}
 }
 
-
-
 /*
- * if (player1Score.equals(SCORE_ZERO)) { player1Score = SCORE_ONE; }
- * else if (player1Score.equals(SCORE_ONE)) { player1Score = SCORE_TWO;
- * } else if (player1Score.equals(SCORE_TWO)) { player1Score =
- * SCORE_THREE; } else if (player1Score.equals(SCORE_THREE)) {
+ * if (player1Score.equals(SCORE_ZERO)) { player1Score = SCORE_ONE; } else if
+ * (player1Score.equals(SCORE_ONE)) { player1Score = SCORE_TWO; } else if
+ * (player1Score.equals(SCORE_TWO)) { player1Score = SCORE_THREE; } else if
+ * (player1Score.equals(SCORE_THREE)) {
  * 
  * }
  */
