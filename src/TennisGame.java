@@ -42,7 +42,7 @@ public class TennisGame {
 		Scanner in = new Scanner(System.in);
 		
 		while(player1score!=5 && player2score!=5){
-			if(player1score==4 && player2score==4) System.out.println("deuce");
+			if(player1score==3 && player2score==3) System.out.println("deuce");
 			else System.out.println(getScore(player1score) + "-" + getScore(player2score));
 			who = in.nextInt();
 			if (who==1) player1Scored();
