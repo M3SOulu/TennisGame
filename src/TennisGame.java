@@ -2,25 +2,32 @@
 public class TennisGame {
 	private int playerOneScore = 0;
 	private int playerTwoScore = 0;
-
+	private boolean gameOver = false;
+	
 	public String getScore() {
 		return "Player1 "+ calcScore(1) + " - " + calcScore(2) + " Player2";
 	}
 
 	public void playerScored(int player) {
-		if (player == 1) {
-			playerOneScore++;
-		} else {
-			playerTwoScore++;
-		}
-		if(playerOneScore > 3 && playerOneScore - playerTwoScore > 1){
-			System.out.println("Player 1 wins!");
-		}
-		else if(playerTwoScore > 3 && playerTwoScore - playerOneScore > 1){
-			System.out.println("Player 2 wins!");
-		}
-		else{
-			System.out.println(getScore());
+		if(!gameOver){
+			if (player == 1) {
+				playerOneScore++;
+			} else {
+				playerTwoScore++;
+			}
+			if(playerOneScore > 3 && playerOneScore - playerTwoScore > 1){
+				System.out.println("Player 1 wins!");
+				gameOver = true;
+			}
+			else if(playerTwoScore > 3 && playerTwoScore - playerOneScore > 1){
+				System.out.println("Player 2 wins!");
+				gameOver = true;
+			}
+			else{
+				System.out.println(getScore());
+			}
+		} else{
+			System.out.println("Game Ended");
 		}
 	}
 
