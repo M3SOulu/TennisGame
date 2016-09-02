@@ -11,7 +11,8 @@ public class TennisGame {
 		if (a == 4 && b == 4){
 			return "Deuce";
 		}else if (a < 4 && b < 4){
-			return "%s - %s", getpoint(a), getpoint(b);
+			String e = (getpoint(a) + "-" + getpoint(b));
+			return e;
 		}else{
 			if (a > b){
 				return "Advantage - 40";
