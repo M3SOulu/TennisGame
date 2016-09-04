@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.lang.Integer;
 
 public class TennisGame {
-	private final String NO_PLAYER = "";
+	private final int NO_PLAYER = -1;
 	private final int PLAYER_AMOUNT = 2;
 	private final int PLAYER_1 = 0;
 	private final int PLAYER_2 = 1;
+	private int[] validPlayers;
 	private int[] scores;
 	private boolean noAdvantage;
 	private int[] advantage;
 	private boolean interactive;
-	private String mScoredPlayer;
+	private int mScoredPlayer;
 
 	public TennisGame() {
 		interactive = true;
@@ -36,11 +37,11 @@ public class TennisGame {
 
 	public static void main(String[] args) {
 		TennisGame aTennisGame = new TennisGame();
-		String winner = "0";
+		int winner = -1;
 
 		aTennisGame.setup();
 
-		while (winner.equals("0")) {
+		while (-1 == winner) {
 			winner = aTennisGame.playRound();
 			aTennisGame.announceScore();
 		}
@@ -51,6 +52,7 @@ public class TennisGame {
 	private void setup() {
 		scores = new int[PLAYER_AMOUNT];
 		advantage = new int[PLAYER_AMOUNT];
+		validPlayers = new int[PLAYER_AMOUNT];
 		noAdvantage = true;
 		mScoredPlayer = NO_PLAYER;
 
@@ -58,46 +60,42 @@ public class TennisGame {
 			scores[i] = 0;
 			advantage[i] = 0;
 		}
+
+		validPlayers[0] = PLAYER_1;
+		validPlayers[1] = PLAYER_2;
 	}
 
-	private String playRound() {
+	private int playRound() {
 		boolean playerOk = false;
 
 		while (!playerOk) {
 			System.out.println("Who scores? > ");
-			mScoredPlayer = whoScored();
+			mScoredPlayer = whoScored() - 1;
 			playerOk = validPlayer(mScoredPlayer);
 
 			if (!playerOk)
 				System.out.println("invalid player");
 		}
 
-		return didPlayerWin() ? mScoredPlayer : "0";
+		return didPlayerWin() ? mScoredPlayer : -1;
 	}
 
 	private boolean didPlayerWin() {
-		if (scores[Integer.parseInt(mScoredPlayer) - 1] <= 15) {
-			scores[Integer.parseInt(mScoredPlayer) - 1] = scores[Integer.parseInt(mScoredPlayer) - 1] + 15;
-		} else if (scores[Integer.parseInt(mScoredPlayer) - 1] == 30) {
-			scores[Integer.parseInt(mScoredPlayer) - 1] = scores[Integer.parseInt(mScoredPlayer) - 1] + 10;
-		}
-
-		if (false == noAdvantage) {
-			advantage[PLAYER_1] = 0;
-			advantage[PLAYER_2] = 0;
-			noAdvantage = true;
-		}
-
-		if ((scores[PLAYER_1] == 40) && (scores[PLAYER_2] == 40)) {
-			noAdvantage = false;
-
-			advantage[Integer.parseInt(mScoredPlayer) - 1] = 1;
-		}
-
-		//handle advantage
-		if ((40 == scores[Integer.parseInt(mScoredPlayer) - 1] && noAdvantage) ||
-				(40 == scores[Integer.parseInt(mScoredPlayer) - 1] && advantage[Integer.parseInt(mScoredPlayer) - 1] == 1)) {
-			return true;
+		if (scores[mScoredPlayer] <= 15) {
+			scores[mScoredPlayer] = scores[mScoredPlayer] + 15;
+		} else if (scores[mScoredPlayer] == 30) {
+			scores[mScoredPlayer] = scores[mScoredPlayer] + 10;
+		} else if (scores[mScoredPlayer] == 40) {
+			if (scores[(mScoredPlayer + 1) % PLAYER_AMOUNT] < 40
+				|| 1 == advantage[mScoredPlayer]) {
+				scores[mScoredPlayer] = scores[mScoredPlayer] + 5;
+				return true;
+			} else {
+				if (0 == advantage[(mScoredPlayer + 1) % PLAYER_AMOUNT]) {
+					advantage[mScoredPlayer] = 1;
+				}
+				advantage[(mScoredPlayer + 1) % PLAYER_AMOUNT] = 0;
+			}
 		}
 
 		return false;
@@ -105,17 +103,13 @@ public class TennisGame {
 
 	private void announceScore() {
 		System.out.println(mScoredPlayer + " scored!");
-		System.out.println("his score is now: " + scores[Integer.parseInt(mScoredPlayer) - 1]);
+		System.out.println("his score is now: " + scores[mScoredPlayer]);
 	}
 
 	// in setup maybe run this for victory sequence
-	private boolean validPlayer(String player) {
-		String[] validPlayers = new String[PLAYER_AMOUNT];
-		validPlayers[0] = "1";
-		validPlayers[1] = "2";
-
+	private boolean validPlayer(int player) {
 		for (int i = 0; i < validPlayers.length; i++) {
-			if (player.equals(validPlayers[i])) {
+			if (player == validPlayers[i]) {
 				return true;
 			}
 		}
@@ -123,18 +117,19 @@ public class TennisGame {
 		return false;
 	}
 
-	private String whoScored () {
+	private int whoScored () {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input = "";
+		int playerNum = -1;
 
 		try {
 			input = br.readLine();
-			//Integer.parseInt(input);
+			playerNum = Integer.parseInt(input);
 		} catch (IOException|NumberFormatException e) {
-			System.out.println("Exception: " + e.getMessage());
+			System.out.println("Exception while reading which player scored: " + e.getMessage());
 		}
 
-		return input;
+		return playerNum;
 	}
 
 	public void player1Scored() {
