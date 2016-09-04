@@ -11,6 +11,26 @@ public class TennisGame {
 	private int[] scores;
 	private boolean noAdvantage;
 	private int[] advantage;
+	private boolean interactive;
+
+	public TennisGame() {
+		interactive = true;
+	}
+
+	public TennisGame(String[] args) {
+		int i;
+		for (i = 0; i < args.length; i++) {
+			recognizeArg(args[i]);
+		}
+	}
+
+	private void recognizeArg(String arg) {
+		switch (arg) {
+			case "interactive":
+				interactive = true;
+			default:
+		}
+	}
 
 	public static void main(String[] args) {
 		TennisGame aTennisGame = new TennisGame();
@@ -109,8 +129,10 @@ public class TennisGame {
 
 		try {
 			input = br.readLine();
-		} catch (IOException e) {
-			System.out.println("exception: " + e.getMessage());
+			br.close();
+			//Integer.parseInt(input);
+		} catch (IOException|NumberFormatException e) {
+			System.out.println("Exception: " + e.getMessage());
 		}
 
 		return input;
