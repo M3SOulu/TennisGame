@@ -49,3 +49,6 @@ Temporary Items
 
 # Output files
 *.class
+
+# Temporary files
+*.swp

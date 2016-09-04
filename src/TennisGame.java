@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.Integer;
 
 public class TennisGame {
+	private final String NO_PLAYER = "";
 	private final int PLAYER_AMOUNT = 2;
 	private final int PLAYER_1 = 0;
 	private final int PLAYER_2 = 1;
@@ -12,6 +13,7 @@ public class TennisGame {
 	private boolean noAdvantage;
 	private int[] advantage;
 	private boolean interactive;
+	private String mScoredPlayer;
 
 	public TennisGame() {
 		interactive = true;
@@ -39,7 +41,8 @@ public class TennisGame {
 		aTennisGame.setup();
 
 		while (winner.equals("0")) {
-			winner = aTennisGame.playRound(); 
+			winner = aTennisGame.playRound();
+			aTennisGame.announceScore();
 		}
 
 		System.out.println("Winner is " + winner);
@@ -49,6 +52,7 @@ public class TennisGame {
 		scores = new int[PLAYER_AMOUNT];
 		advantage = new int[PLAYER_AMOUNT];
 		noAdvantage = true;
+		mScoredPlayer = NO_PLAYER;
 
 		for (int i = 0; i < PLAYER_AMOUNT; i++) {
 			scores[i] = 0;
@@ -58,34 +62,24 @@ public class TennisGame {
 
 	private String playRound() {
 		boolean playerOk = false;
-		String scoredPlayer = "";
-
 
 		while (!playerOk) {
 			System.out.println("Who scores? > ");
-			scoredPlayer = whoScored();
-			playerOk = validPlayer(scoredPlayer);
+			mScoredPlayer = whoScored();
+			playerOk = validPlayer(mScoredPlayer);
 
 			if (!playerOk)
 				System.out.println("invalid player");
 		}
 
-		if (didPlayerWin(scoredPlayer)) {
-			System.out.println(scoredPlayer + " scored!");
-			System.out.println("his score is now: " + scores[Integer.parseInt(scoredPlayer) - 1]);
-			return scoredPlayer;
-		} else {
-			System.out.println(scoredPlayer + " scored!");
-			System.out.println("his score is now: " + scores[Integer.parseInt(scoredPlayer) - 1]);
-			return "0";
-		}
+		return didPlayerWin() ? mScoredPlayer : "0";
 	}
 
-	private boolean didPlayerWin(String scoredPlayer) {
-		if (scores[Integer.parseInt(scoredPlayer) - 1] <= 15) {
-			scores[Integer.parseInt(scoredPlayer) - 1] = scores[Integer.parseInt(scoredPlayer) - 1] + 15;
-		} else if (scores[Integer.parseInt(scoredPlayer) - 1] == 30) {
-			scores[Integer.parseInt(scoredPlayer) - 1] = scores[Integer.parseInt(scoredPlayer) - 1] + 10;
+	private boolean didPlayerWin() {
+		if (scores[Integer.parseInt(mScoredPlayer) - 1] <= 15) {
+			scores[Integer.parseInt(mScoredPlayer) - 1] = scores[Integer.parseInt(mScoredPlayer) - 1] + 15;
+		} else if (scores[Integer.parseInt(mScoredPlayer) - 1] == 30) {
+			scores[Integer.parseInt(mScoredPlayer) - 1] = scores[Integer.parseInt(mScoredPlayer) - 1] + 10;
 		}
 
 		if (false == noAdvantage) {
@@ -97,18 +91,24 @@ public class TennisGame {
 		if ((scores[PLAYER_1] == 40) && (scores[PLAYER_2] == 40)) {
 			noAdvantage = false;
 
-			advantage[Integer.parseInt(scoredPlayer) - 1] = 1;
+			advantage[Integer.parseInt(mScoredPlayer) - 1] = 1;
 		}
 
 		//handle advantage
-		if ((40 == scores[Integer.parseInt(scoredPlayer) - 1] && noAdvantage) ||
-				(40 == scores[Integer.parseInt(scoredPlayer) - 1] && advantage[Integer.parseInt(scoredPlayer) - 1] == 1)) {
+		if ((40 == scores[Integer.parseInt(mScoredPlayer) - 1] && noAdvantage) ||
+				(40 == scores[Integer.parseInt(mScoredPlayer) - 1] && advantage[Integer.parseInt(mScoredPlayer) - 1] == 1)) {
 			return true;
 		}
 
 		return false;
 	}
 
+	private void announceScore() {
+		System.out.println(mScoredPlayer + " scored!");
+		System.out.println("his score is now: " + scores[Integer.parseInt(mScoredPlayer) - 1]);
+	}
+
+	// in setup maybe run this for victory sequence
 	private boolean validPlayer(String player) {
 		String[] validPlayers = new String[PLAYER_AMOUNT];
 		validPlayers[0] = "1";
@@ -116,7 +116,7 @@ public class TennisGame {
 
 		for (int i = 0; i < validPlayers.length; i++) {
 			if (player.equals(validPlayers[i])) {
-				return true; 
+				return true;
 			}
 		}
 
@@ -129,7 +129,6 @@ public class TennisGame {
 
 		try {
 			input = br.readLine();
-			br.close();
 			//Integer.parseInt(input);
 		} catch (IOException|NumberFormatException e) {
 			System.out.println("Exception: " + e.getMessage());
