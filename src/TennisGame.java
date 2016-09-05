@@ -14,7 +14,7 @@ public class TennisGame {
 	public void getScoreString() {
 		if (state == 0) {
 			System.out.println("\nScore: " + p1.getName() + " - " + p2.getName());
-			if (p1.getPointsWon() >= 3 && p2.getPointsWon() >= 3 && state == 0) {
+			if (p1.getPointsWon() >= 3 && p2.getPointsWon() >= 3) {
 				if (p1.getScore() == p2.getScore()) {
 					System.out.println("Deuce");
 				}
