@@ -9,11 +9,9 @@ public class TennisGame {
 	private final int PLAYER_AMOUNT = 2;
 	private final int PLAYER_1 = 0;
 	private final int PLAYER_2 = 1;
+	private boolean interactive;
 	private int[] validPlayers;
 	private int[] scores;
-	private boolean noAdvantage;
-	private int[] advantage;
-	private boolean interactive;
 	private int mScoredPlayer;
 
 	public TennisGame() {
@@ -51,18 +49,16 @@ public class TennisGame {
 
 	private void setup() {
 		scores = new int[PLAYER_AMOUNT];
-		advantage = new int[PLAYER_AMOUNT];
 		validPlayers = new int[PLAYER_AMOUNT];
-		noAdvantage = true;
 		mScoredPlayer = NO_PLAYER;
 
 		for (int i = 0; i < PLAYER_AMOUNT; i++) {
 			scores[i] = 0;
-			advantage[i] = 0;
 		}
 
 		validPlayers[0] = PLAYER_1;
 		validPlayers[1] = PLAYER_2;
+
 	}
 
 	private int playRound() {
@@ -81,24 +77,24 @@ public class TennisGame {
 	}
 
 	private boolean didPlayerWin() {
-		if (scores[mScoredPlayer] <= 15) {
-			scores[mScoredPlayer] = scores[mScoredPlayer] + 15;
-		} else if (scores[mScoredPlayer] == 30) {
-			scores[mScoredPlayer] = scores[mScoredPlayer] + 10;
-		} else if (scores[mScoredPlayer] == 40) {
-			if (scores[(mScoredPlayer + 1) % PLAYER_AMOUNT] < 40
-				|| 1 == advantage[mScoredPlayer]) {
-				scores[mScoredPlayer] = scores[mScoredPlayer] + 5;
+		if (scores[mScoredPlayer] <= 2) {
+			scores[mScoredPlayer]++;
+		} else {
+			if (scores[mScoredPlayer] > scores[lostPlayer()]) {
+				scores[mScoredPlayer]++;
 				return true;
 			} else {
-				if (0 == advantage[(mScoredPlayer + 1) % PLAYER_AMOUNT]) {
-					advantage[mScoredPlayer] = 1;
-				}
-				advantage[(mScoredPlayer + 1) % PLAYER_AMOUNT] = 0;
+				if (3 == scores[lostPlayer()])
+					scores[mScoredPlayer]++;
+				scores[lostPlayer()] = 3;
 			}
 		}
 
 		return false;
+	}
+
+	private int lostPlayer() {
+		return (mScoredPlayer + 1) % PLAYER_AMOUNT;
 	}
 
 	private void announceScore() {
