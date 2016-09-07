@@ -35,7 +35,7 @@ public class TennisGame {
 	
 		if (scores[player] == Score.FORTY && scores[otherPlayer] != Score.FORTY) {
 			// Player wins
-			scores[player] = scores[player].next().next();
+			scores[player] = Score.WIN;
 		} else {
 			scores[player] = scores[player].next();
 		}
