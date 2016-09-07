@@ -14,6 +14,15 @@ public class TennisGame {
 	private int[] scores;
 	private int mScoredPlayer;
 
+	private String[] scoreNames = {
+		"Love",
+		"Fifteen",
+		"Thirty",
+		"Fourty",
+		"Game",
+		"Game"
+	};
+
 	public TennisGame() {
 		interactive = true;
 	}
@@ -98,8 +107,28 @@ public class TennisGame {
 	}
 
 	private void announceScore() {
-		System.out.println(mScoredPlayer + " scored!");
-		System.out.println("his score is now: " + scores[mScoredPlayer]);
+		String[] score = getScore();
+		System.out.println((mScoredPlayer + 1) + " scored!");
+		System.out.println("Score is now: " + score[0] + score[1]);
+	}
+
+	private String[] getScore() {
+		String[] totalScore = new String[2];
+
+		totalScore[1] = "";
+
+		if (scores[mScoredPlayer] == scores[lostPlayer()]) {
+			totalScore[0] = scoreNames[scores[0]] + " All";
+			if (3 == scores[mScoredPlayer])
+				totalScore[0] = "Deuce";
+		} else if (4 == scores[mScoredPlayer] && scores[lostPlayer()] > 2) {
+			totalScore[0] = "Adv " + (mScoredPlayer + 1);
+		} else {
+			totalScore[0] = scoreNames[scores[0]];
+			totalScore[1] = " - " + scoreNames[scores[1]];
+		}
+
+		return totalScore;
 	}
 
 	// in setup maybe run this for victory sequence
