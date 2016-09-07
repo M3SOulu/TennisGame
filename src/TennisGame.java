@@ -23,7 +23,11 @@ public class TennisGame {
 	public static final int PLAYER_1 = 0;
 	public static final int PLAYER_2 = 1;
 	
-	public void playerScored(int player) {
+	public void playerScored(int player) throws IllegalArgumentException {
+		if (player != 0 && player != 1) {
+			throw new IllegalArgumentException("Player ID must be either 0 or 1.");
+		}
+		
 		// Switch 0 -> 1 or vice versa
 		int otherPlayer = player ^ 1;
 		
