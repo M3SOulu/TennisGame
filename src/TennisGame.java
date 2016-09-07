@@ -5,14 +5,19 @@ import java.io.IOException;
 import java.lang.Integer;
 
 public class TennisGame {
+	private final String PARAM_END_TAG = "-end-";
 	private final int NO_PLAYER = -1;
 	private final int PLAYER_AMOUNT = 2;
 	private final int PLAYER_1 = 0;
 	private final int PLAYER_2 = 1;
+	private boolean parseVictorySequence;
+	private boolean argParameters;
 	private boolean interactive;
+	private int[] victorySequence = null;
 	private int[] validPlayers;
 	private int[] scores;
 	private int mScoredPlayer;
+	private int fillIndex; // should allow only one user for this
 
 	private String[] scoreNames = {
 		"Love",
@@ -24,7 +29,7 @@ public class TennisGame {
 	};
 
 	public TennisGame() {
-		interactive = true;
+		this("interactive".split(" ")); // split returns string array
 	}
 
 	public TennisGame(String[] args) {
@@ -35,15 +40,50 @@ public class TennisGame {
 	}
 
 	private void recognizeArg(String arg) {
-		switch (arg) {
-			case "interactive":
-				interactive = true;
-			default:
+		if (argParameters) {
+			if (arg.equals(PARAM_END_TAG)) {
+				parseVictorySequence(arg);
+				argParameters = false;
+			} else if (parseVictorySequence) {
+				parseVictorySequence(arg);
+			}
+		} else {
+			switch (arg) {
+				case "interactive":
+					interactive = true;
+				case "victory_sequence": // const for this
+					argParameters = true;
+					parseVictorySequence = true;
+				default:
+			}
 		}
 	}
 
+	private void parseVictorySequence(String arg) {
+		if (null == victorySequence) {
+			victorySequence = new int[Integer.parseInt(arg)];
+		} else if (arg.equals(PARAM_END_TAG)) {
+			fillIndex = 0;
+		} else {
+			victorySequence[fillIndex] = Integer.parseInt(arg);
+			fillIndex++;
+		}
+
+	}
+
 	public static void main(String[] args) {
-		TennisGame aTennisGame = new TennisGame();
+		//TennisGame aTennisGame = new TennisGame();
+		String[] params = {
+			"victory_sequence",
+			"4", // len
+			"1",
+			"1",
+			"1",
+			"1",
+			"-end-"
+			//aTennisGame.PARAM_END_TAG
+		};
+		TennisGame aTennisGame = new TennisGame(params);
 		int winner = -1;
 
 		aTennisGame.setup();
@@ -67,12 +107,20 @@ public class TennisGame {
 
 		validPlayers[0] = PLAYER_1;
 		validPlayers[1] = PLAYER_2;
-
 	}
 
 	private int playRound() {
-		boolean playerOk = false;
+		if (interactive) {
+			askWinner();
+		} else {
+			nextPredefinedWinner();
+		}
 
+		return didPlayerWin() ? mScoredPlayer : -1;
+	}
+
+	private void askWinner() {
+		boolean playerOk = false;
 		while (!playerOk) {
 			System.out.println("Who scores? > ");
 			mScoredPlayer = whoScored() - 1;
@@ -81,8 +129,16 @@ public class TennisGame {
 			if (!playerOk)
 				System.out.println("invalid player");
 		}
+	}
 
-		return didPlayerWin() ? mScoredPlayer : -1;
+	private void nextPredefinedWinner() {
+		boolean playerOk = false;
+		mScoredPlayer = victorySequence[fillIndex];
+		fillIndex++;
+
+		playerOk = validPlayer(mScoredPlayer);
+		if (!playerOk)
+			System.out.println("invalid player");
 	}
 
 	private boolean didPlayerWin() {
