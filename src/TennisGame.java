@@ -1,16 +1,13 @@
 
 
 public class TennisGame {
-	
-	final int FORTY = 3;
-	
-	private String[] scores;
+
+	final String LOVE = "love", FIFTEEN = "15", THIRTY = "30", FORTY = "40", ADVANTAGE = "Advantage";
 	private boolean advantage, game;
 	private int player1, player2;
 	
 	
 	public TennisGame(){
-		scores = new String[] {"love", "15", "30", "40", "advantage"};
 		advantage = false;
 		game = false;
 		player1 = 0;
@@ -28,9 +25,9 @@ public class TennisGame {
 			}
 			return winner;
 		}
-		String score1 = scores[player1];
-		String score2 = scores[player2];
-		if(player1 == FORTY && player2 == FORTY){
+		String score1 = getName(player1);
+		String score2 = getName(player2);
+		if(player1 == 3 && player2 == 3){
 			return "deuce";
 		}
 		
@@ -41,6 +38,7 @@ public class TennisGame {
 		if(advantage){
 			if(player2 > player1){
 				player2--;
+				advantage = false;
 			}
 		}
 		else{
@@ -54,6 +52,7 @@ public class TennisGame {
 		if(advantage){
 			if(player1 > player2){
 				player1--;
+				advantage = false;
 			}
 		}
 		else{
@@ -63,12 +62,24 @@ public class TennisGame {
 
 		
 	}
+	private String getName(int n){
+		switch(n){
+			case 0: return LOVE;
+			case 1: return FIFTEEN;
+			case 2: return THIRTY;
+			case 3: return FORTY;
+			case 4: return ADVANTAGE;
+			default: break;
+		}
+		return null;
+	}
 	//method to check the situation
 	private void updateGame(){
 		int winning = Math.max(player1, player2);
 		//if the player with the higher score is at forty
-		if(winning > FORTY){
-			if(Math.min(player1, player2) == FORTY){
+		int forty = 3;
+		if(winning > forty){
+			if(Math.min(player1, player2) == forty){
 				//if the score is "deuce" change set advantage into use
 				advantage = true;
 				if(winning - Math.min(player1, player2) == 2){
