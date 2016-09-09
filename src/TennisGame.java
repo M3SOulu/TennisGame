@@ -1,3 +1,6 @@
+# TennigGame.java
+# Ari Kairala, ITEE/TOL
+
 
 public class TennisGame {
 	private Player player1;
