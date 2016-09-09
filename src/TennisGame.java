@@ -1,4 +1,4 @@
-
+// KLA Updated 9.9.2016 
 public class TennisGame {
 
 	private int Player1Score = 0;
@@ -7,8 +7,8 @@ public class TennisGame {
 	private String Player2Name;
 	
 	public TennisGame(String Player1Name, String Player2Name) {
-		this.Player1Name = Player1Name;
-		this.Player1Name = Player2Name;
+		this.Player1Name = "Tuukka";
+		this.Player1Name = "Henna";
 	}		
 	
 public String getScore() {	
@@ -42,7 +42,7 @@ public String getScore() {
 
 	private boolean Winner() {
 		
-		// check winner
+		// Check winner
 		if(Player2Score >= 4 && Player2Score >= Player1Score + 2 )
 			return true;
 		if(Player1Score >= 4 && Player1Score >= Player2Score + 2 )
@@ -96,8 +96,7 @@ public String getScore() {
 			Player2Score++;
 			
 		}
-		
-		
+			
 
 }
 
