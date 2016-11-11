@@ -1,17 +1,17 @@
 /**
- * class implementing tennis 
+ * class implementing a tennis match between 2 tennis player
  * @author Mikele
  *
  */
-
-
 public class TennisGame {
 	
 	private Player p1;
 	private Player p2;
 	private String state;
 
-	
+	/**
+	 * default costructor
+	 */
 	public TennisGame(){
 		
 		p1= new Player("player1");
@@ -19,7 +19,9 @@ public class TennisGame {
 		state=TennisStatus.READY;
 		
 	}
-
+	
+	//getters and setters
+	
 	public Player getPlayer1(){ return this.p1; }
 	
 	public Player getPlayer2(){ return this.p2; }
@@ -27,9 +29,15 @@ public class TennisGame {
 	public String getState(){ return this.state;}	
 	
 	public void setState(String state) {
+		
 		this.state = state;
 	}
-
+	
+	/**
+	 * initialize a game
+	 * 
+	 * @return initialization string
+	 */
 	public String initGame(){
 		
 		setState(TennisStatus.RUNNING);
@@ -40,6 +48,12 @@ public class TennisGame {
 		
 	}
 	
+	/**
+	 * play a set
+	 * score the player who score a point and update game status
+	 * @param goaler: player who score
+	 * @param loser: unliky player
+	 */
 	public void playSet(Player goaler, Player loser){
 		
 		switch(goaler.getScore()){
@@ -88,6 +102,11 @@ public class TennisGame {
 		
 	}
 	
+	/**
+	 * check if the match is in deuce
+	 * 
+	 * if it is, update game status 
+	 */
 	public void checkDeuce(){
 		
 		if(this.p1.getScore()==this.p2.getScore()){
@@ -97,6 +116,10 @@ public class TennisGame {
 		}
 	}
 	
+	/**
+	 * print the score string of thi game
+	 * @return score string
+	 */
 	public String printScore(){
 		
 		String message="Score: ";

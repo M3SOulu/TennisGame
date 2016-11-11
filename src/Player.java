@@ -1,14 +1,25 @@
-
+/**
+ * Player of a tennis game
+ * @author Michele
+ *
+ */
 public class Player {
 
 	private int score;
 	private  String name;
 	
-	
+	/**
+	 * default costructor
+	 * 
+	 * @param name
+	 */
 	public Player( String name) {
 		this.score = TennisScore.LOVE;
 		this.name = name;
 	}
+	
+	//getters and setters
+	
 	public int getScore() {
 		return score;
 	}
@@ -22,6 +33,12 @@ public class Player {
 		this.name = name;
 	}
 	
+	//
+	
+	/**
+	 * print the score a this player
+	 * @return
+	 */
 	public String printScore(){
 		
 		String score="";
