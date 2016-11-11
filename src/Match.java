@@ -20,7 +20,13 @@ public class Match {
 		}
 	}
 	
-	
+//	public int getWinnerPointPlayer1(){
+//		
+//	}
+//	
+//	public int getWinnerPointPlayer2(){
+//		
+//	}
 	
 	public boolean isWon()
 	{
