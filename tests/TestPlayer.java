@@ -12,7 +12,7 @@ public class TestPlayer {
 	@Before
 	public void setUp(){
 		//Arrange
-		player = new Player();
+		player = new Player("playerName");
 	}
 
 	@Test
@@ -30,13 +30,30 @@ public class TestPlayer {
 	}
 	
 	@Test
-	public void zeroPointsIsDescribedAsLove() throws CantGetScoreDescriptionException{
+	public void zeroPointsAreDescribedAsLove() throws CantGetScoreDescriptionException{
 		//Assert
 		assertTrue(player.getScoreDescription().equals("love"));
 	}
 	
 	@Test
-	public void ThreePointsAreDescribedAsFourty() throws CantGetScoreDescriptionException{
+	public void OnePointIsDescribedAsFifteen() throws CantGetScoreDescriptionException{
+		//Arrange
+		player.addPoint();
+		//Assert
+		assertTrue(player.getScoreDescription().equals("15"));
+	}
+	
+	@Test
+	public void TwoPointsAreDescribedAsTirty() throws CantGetScoreDescriptionException{
+		//Arrange
+		player.addPoint();
+		player.addPoint();
+		//Assert
+		assertTrue(player.getScoreDescription().equals("30"));
+	}
+	
+	@Test
+	public void threePointsAreDescribedAsFourty() throws CantGetScoreDescriptionException{
 		//Arrange
 		player.addPoint();
 		player.addPoint();
