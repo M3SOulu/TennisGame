@@ -11,7 +11,7 @@ public class TennisStatus {
 	public static final String READY="ready";
 	
 	/**
-	 * tennis game status after initialization
+	 * tennis game status during the game (after initialization and before the end)
 	 */
 	public static final String RUNNING="running";
 	

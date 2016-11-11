@@ -80,6 +80,13 @@ public class TennisGame {
 				goaler.setScore(TennisScore.ADVANTAGE);
 				loser.setScore(TennisScore.FORTY);
 				
+				this.state=TennisStatus.RUNNING;
+				
+			}else if(loser.getScore()==TennisScore.ADVANTAGE){
+				
+				loser.setScore(TennisScore.FORTY);
+				
+				
 			}else{
 				
 				setState(TennisStatus.END);
@@ -109,7 +116,7 @@ public class TennisGame {
 	 */
 	public void checkDeuce(){
 		
-		if(this.p1.getScore()==this.p2.getScore()){
+		if(this.p1.getScore()==this.p2.getScore() && this.p1.getScore()==TennisScore.FORTY){
 			
 			setState(TennisStatus.DEUCE);
 			
@@ -117,7 +124,7 @@ public class TennisGame {
 	}
 	
 	/**
-	 * print the score string of thi game
+	 * print the score string of this game
 	 * @return score string
 	 */
 	public String printScore(){
@@ -128,7 +135,7 @@ public class TennisGame {
 		
 			case TennisStatus.RUNNING:
 			
-				message+=getPlayer1().printScore()+" - "+getPlayer2().printScore();
+				message+=p1.printScore()+" - "+p2.printScore();
 				break;
 			
 			case TennisStatus.DEUCE:
@@ -138,13 +145,13 @@ public class TennisGame {
 			
 			case TennisStatus.END:
 				
-				if(getPlayer1().getScore()==TennisScore.WINNER){
+				if(p1.getScore()==TennisScore.WINNER){
 					
-					message=getPlayer1().printScore();
+					message+=p1.printScore();
 					
 				}else{
 					
-					message=getPlayer2().printScore();
+					message+=p2.printScore();
 				}
 				break;
 				
