@@ -16,7 +16,7 @@ public class TennisGame {
 			if(player1.getScore() <= 30){
 				player1.setScore(15);
 				player1.setPointWin();
-				whoScores = "player1 scores > Scores: ";
+				whoScores = "player1 scores > Scores: " + convertScore(player1.getScore()) + " - " + ;
 			} else {
 				player1.setScore(10);
 				player1.setPointWin();
