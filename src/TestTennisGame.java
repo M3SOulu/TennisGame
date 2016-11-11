@@ -21,6 +21,7 @@ public class TestTennisGame {
 	@Test
 	public void test() {
 		Assert.assertEquals("Filippo scores > Score: 15 - love", match.scorePlayerOne());
+		Assert.assertEquals("Antonio scores > Score: 15 - 15", match.scorePlayerTwo());
 	}
 
 }
