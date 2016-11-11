@@ -5,17 +5,19 @@
  */
 public class Player {
 	private Score score;
-	private static int ID = 0;
+	private static int count = 0;
+	private int id = 0;
 	
 	public Player()
 	{
-		ID++;
+		count++;
+		id = count;
 	}
 	
 	public Player( Score score ) throws InvalidScoreException
 	{
+		this();
 		setScore( score );
-		ID++;
 	}
 
 	public int getScoreInt() {
@@ -28,6 +30,10 @@ public class Player {
 		}
 		
 		this.score = score;
+	}
+	
+	public int getId(){
+		return id;
 	}
 	
 	
