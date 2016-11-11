@@ -1,21 +1,28 @@
 package game;
 
+import player.InvalidScoreExceptio;
 import player.Player;
 
 public class TennisGame {
 	/* the 2 players of the game session */
 	Player p1, p2; 
 	
+	/* the message of the score */
+	String message;
+	
+	public String getMessage() {
+		return message;
+	}
+	
 	/* constructors */
 	public TennisGame(){
 		p1 = new Player();
 		p2 = new Player();
-		System.out.println("-----New game begins!-----");
-		System.out.println("Initial love - love");
+		message = "Initial love - love";
 	}
 	
 	/* methods */
-	public void pScores(int who) throws InvalidPlayerException{
+	public void pScores(int who) throws InvalidPlayerException, InvalidScoreExceptio{
 		Player p;
 		if(who == 1){
 			p = p1;
@@ -25,24 +32,28 @@ public class TennisGame {
 		}
 		else throw new InvalidPlayerException();
 		
-		System.out.print("player" + who + " scores");
 		if(isDeuce()){
 			p.setPunteggio("advantage");
+			message = " > Score: " + p1.getPunteggio() + " - " + p2.getPunteggio();
 		}
 		else if(p.getPunteggio().equalsIgnoreCase("40") || p.getPunteggio().equalsIgnoreCase("advantage")){
-			System.out.println(" > Score: player" + who + "wins");
-			reset();
+			message = " > Score: player" + who + " wins";
 		}
 		else{
 			p.increaseScore();
+			if(isDeuce()) {
+				message = " > Score: deuce";
+			}
+			else {
+				message = " > Score: " + p1.getPunteggio() + " - " + p2.getPunteggio();
+			}
 		}
 	}
 
-	private void reset() {
+	public void reset() {
 		p1 = new Player();
 		p2 = new Player();
-		System.out.println("-----New game begins!-----");
-		System.out.println("Initial love - love");		
+		message = "Initial love - love";		
 	}
 
 	private boolean isDeuce() {

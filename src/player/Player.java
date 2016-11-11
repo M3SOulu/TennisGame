@@ -23,7 +23,7 @@ public class Player {
 	}
 	
 	/* methods */
-	public void increaseScore(){
+	public void increaseScore() throws InvalidScoreExceptio{
 		if(score.equalsIgnoreCase("love")){
 			score = "15";
 		}
@@ -33,6 +33,7 @@ public class Player {
 		else if(score.equalsIgnoreCase("30")){
 			score = "40";
 		}
+		else throw new InvalidScoreExceptio();
 	}
 
 }
