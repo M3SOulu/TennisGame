@@ -6,7 +6,7 @@ public class Player {
 	
 	
 	public Player( String name) {
-		this.score = 0;
+		this.score = TennisScore.LOVE;
 		this.name = name;
 	}
 	public int getScore() {
@@ -33,6 +33,10 @@ public class Player {
 		}else if(this.score==TennisScore.ADVANTAGE){
 			
 			score="advantage";
+			
+		}else if (getScore()==TennisScore.WINNER){
+			
+			score=getName()+" wins";		
 			
 		}else{
 			

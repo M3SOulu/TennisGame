@@ -16,7 +16,7 @@ public class TennisGame {
 		
 		p1= new Player("player1");
 		p2= new Player("player2");
-		state=TennisStatus.NULL;
+		state=TennisStatus.READY;
 		
 	}
 
@@ -24,11 +24,16 @@ public class TennisGame {
 	
 	public Player getPlayer2(){ return this.p2; }
 	
-	public String getState(){ return this.state;}
+	public String getState(){ return this.state;}	
 	
-	
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public String initGame(){
 		
+		setState(TennisStatus.RUNNING);
+	
 		return "Initial love - love";
 		
 		
@@ -42,6 +47,7 @@ public class TennisGame {
 		case TennisScore.LOVE:
 			
 			goaler.setScore(TennisScore.FIFTEEN);
+			break;
 		
 		case TennisScore.FIFTEEN:
 			
@@ -62,14 +68,20 @@ public class TennisGame {
 				
 			}else{
 				
-				this.state=TennisStatus.END;
+				setState(TennisStatus.END);
+				goaler.setScore(TennisScore.WINNER);
 			}
 			
 			break;
 		
 		case TennisScore.ADVANTAGE:
 			
-			this.state=TennisStatus.END;
+			setState(TennisStatus.END);
+			goaler.setScore(TennisScore.WINNER);
+			
+		default:
+			break;
+			
 		}
 		
 		checkDeuce();
@@ -80,11 +92,45 @@ public class TennisGame {
 		
 		if(this.p1.getScore()==this.p2.getScore()){
 			
-			this.state=TennisStatus.DEUCE;
+			setState(TennisStatus.DEUCE);
 			
 		}
 	}
 	
-	String printScore(){}
+	public String printScore(){
+		
+		String message="Score: ";
+		
+		switch(getState()){
+		
+			case TennisStatus.RUNNING:
+			
+				message+=getPlayer1().printScore()+" - "+getPlayer2().printScore();
+				break;
+			
+			case TennisStatus.DEUCE:
+			
+				message="deuce";
+				break;
+			
+			case TennisStatus.END:
+				
+				if(getPlayer1().getScore()==TennisScore.WINNER){
+					
+					message=getPlayer1().printScore();
+					
+				}else{
+					
+					message=getPlayer2().printScore();
+				}
+				break;
+				
+			default:
+				break;
+			
+		}
+		
+		return message;
+	}
 
 }
