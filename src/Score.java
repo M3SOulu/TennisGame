@@ -11,15 +11,20 @@ public class Score {
 	
 	public Score( int score ) throws InvalidScoreException
 	{
+		setScore(score);
+	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore( int score ) throws InvalidScoreException
+	{
 		if( score < MIN_SCORE || score > MAX_SCORE ){
 			throw new InvalidScoreException();
 		}
 		
 		this.score = score;
-	}
-
-	public int getScore() {
-		return score;
 	}
 	
 	public String toString()
