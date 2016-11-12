@@ -3,7 +3,7 @@
  * Tennis single Score
  *
  */
-public class Score {
+public class Score implements Comparable<Score>{
 	private int score;
 	
 	private final static int MIN_SCORE = 0;
@@ -45,6 +45,42 @@ public class Score {
 		}
 		
 		return stringScore;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + score;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Score other = (Score) obj;
+		if (score != other.score)
+			return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo( Score score2 ) {
+		// TODO Auto-generated method stub
+		if( score > score2.getScore() ){
+			return 1;
+		}
+		else if( score == score2.getScore() ){
+			return 0;
+		}
+		else{
+			return -1;
+		}
 	}
 
 	

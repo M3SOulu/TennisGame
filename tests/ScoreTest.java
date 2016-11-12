@@ -7,7 +7,7 @@ public class ScoreTest {
 	@Test
 	public void testScore() throws InvalidScoreException{
 		Score s = new Score( 1 );
-		assertEquals("15", s.toString());
+		assertEquals( 1, s.getScore() );
 	}
 	
 	@Test (expected = InvalidScoreException.class)
@@ -42,5 +42,23 @@ public class ScoreTest {
 	public void testStringScore4() throws InvalidScoreException{
 		Score s = new Score( 3 );
 		assertEquals("40", s.toString());
+	}
+	
+	@Test
+	public void testCompareToScoreSmaller() throws InvalidScoreException{
+		Score s = new Score( 1 );
+		assertEquals(1, s.compareTo( new Score( 0 ) ));
+	}
+	
+	@Test
+	public void testCompareToScoreGreat() throws InvalidScoreException{
+		Score s = new Score( 1 );
+		assertEquals(-1, s.compareTo( new Score( 2 ) ));
+	}
+	
+	@Test
+	public void testCompareToScoreEquals() throws InvalidScoreException{
+		Score s = new Score( 1 );
+		assertEquals(0, s.compareTo( new Score( 1 ) ));
 	}
 }

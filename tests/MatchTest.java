@@ -1,21 +1,37 @@
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class MatchTest {
-	Match m;
-	
-	@Before
-	public void setUp()
+
+	@Test
+	public void testGetWinner1() 
+			throws InvalidScoreException, InvalidPlayerException 
 	{
-		m = new Match();
+		Player p1 = new Player( new Score( 1 ) );
+		Player p2 = new Player( new Score( 0 ) );
+		Match p = new Match( p1, p2 );
+		assertEquals(p.getWinner(), p1);
 	}
 	
 	@Test
-	public void testAddPointWithPlayer1Winner() throws InvalidPlayerException, InvalidScoreException {
-		m.addPoint( new Point(new Player(new Score(1)), new Player(new Score(0) ) ));
-		assertEquals(expected, actual);
+	public void testGetWinner2() 
+			throws InvalidScoreException, InvalidPlayerException 
+	{
+		Player p1 = new Player( new Score( 0 ) );
+		Player p2 = new Player( new Score( 1 ) );
+		Match p = new Match( p1, p2 );
+		assertEquals(p.getWinner(), p2);
 	}
-
+	
+	@Test
+	public void testGetWinner3() 
+			throws InvalidScoreException, InvalidPlayerException 
+	{
+		Player p1 = new Player( new Score( 0 ) );
+		Player p2 = new Player( new Score( 0 ) );
+		Match p = new Match( p1, p2 );
+		assertEquals(p.getWinner(), null);
+	}
+	
 }
