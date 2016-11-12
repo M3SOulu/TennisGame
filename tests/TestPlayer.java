@@ -36,4 +36,11 @@ public class TestPlayer {
 		player.setScore(TennisScore.WINNER);
 		Assert.assertEquals(player.printScore(),"TennisPlayer wins");
 	}
+	
+	@Test
+	public void testSetString(){
+		
+		player.setName("CiccioCappuccio");
+		Assert.assertEquals(player.getName(),"CiccioCappuccio");
+	}
 }

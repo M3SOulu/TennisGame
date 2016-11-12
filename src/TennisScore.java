@@ -3,7 +3,7 @@
  * @author Michele
  *
  */
-public class TennisScore {
+public final class TennisScore {
 	
 	/**
 	 * love = 0 score

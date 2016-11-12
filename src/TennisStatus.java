@@ -3,7 +3,7 @@
  * @author Michele
  *
  */
-public class TennisStatus {
+public final class TennisStatus {
 	
 	/**
 	 * tennis game is created

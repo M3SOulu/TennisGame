@@ -21,7 +21,7 @@ public class TestTennisGame {
 	}
 
 	@Test
-	public void testScores() {
+	public void testScores() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());
 		Assert.assertEquals(game.printScore(),"Score: 15 - love");
@@ -34,7 +34,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testVictory(){
+	public void testVictory() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
 		game.playSet(game.getPlayer1(), game.getPlayer2());		
@@ -45,7 +45,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testSameScore() {
+	public void testSameScore() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());
 		game.playSet(game.getPlayer2(), game.getPlayer1());
@@ -54,7 +54,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testDeuce(){
+	public void testDeuce() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
 		game.playSet(game.getPlayer1(), game.getPlayer2());
@@ -68,7 +68,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testAdvantage(){
+	public void testAdvantage() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
 		game.playSet(game.getPlayer1(), game.getPlayer2());
@@ -82,7 +82,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testVictoryAfterAdvantage(){
+	public void testVictoryAfterAdvantage() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
 		game.playSet(game.getPlayer1(), game.getPlayer2());
@@ -97,7 +97,7 @@ public class TestTennisGame {
 	}
 	
 	@Test
-	public void testDeuceAfterAdvantage(){
+	public void testDeuceAfterAdvantage() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
 		game.playSet(game.getPlayer1(), game.getPlayer2());
@@ -111,42 +111,15 @@ public class TestTennisGame {
 		Assert.assertEquals(game.printScore(),"deuce");
 	}
 	
-	@Test
-	public void testAdvantageAfterDeuceAdvantageDeuce(){
+	@Test(expected=EndOfGameException.class)
+	public void testEndOfGameException() throws EndOfGameException{
 		
 		game.playSet(game.getPlayer1(), game.getPlayer2());	
+		game.playSet(game.getPlayer1(), game.getPlayer2());		
+		game.playSet(game.getPlayer1(), game.getPlayer2());		
 		game.playSet(game.getPlayer1(), game.getPlayer2());
 		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		
-		Assert.assertEquals(game.printScore(),"Score: advantage - 40");
-		
-		
 	}
-	
-	@Test
-	public void testVictoryAfterAdvantageDeuceAdvantageDeuce(){
-		
-		game.playSet(game.getPlayer1(), game.getPlayer2());	
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer2(), game.getPlayer1());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		game.playSet(game.getPlayer1(), game.getPlayer2());
-		
-		Assert.assertEquals(game.printScore(),"Score: player1 wins");
-		
-		
-	}
-	
+
 
 }

@@ -3,7 +3,7 @@
  * @author Michele
  *
  */
-public class Player {
+ class Player {
 
 	private int score;
 	private  String name;
@@ -13,23 +13,23 @@ public class Player {
 	 * 
 	 * @param name
 	 */
-	public Player( String name) {
+	 Player( String name) {
 		this.score = TennisScore.LOVE;
 		this.name = name;
 	}
 	
 	//getters and setters
 	
-	public int getScore() {
+	 int getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	 void setScore(int score) {
 		this.score = score;
 	}
-	public String getName() {
+	 String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	 void setName(String name) {
 		this.name = name;
 	}
 	
@@ -39,7 +39,7 @@ public class Player {
 	 * print the score a this player
 	 * @return
 	 */
-	public String printScore(){
+	 String printScore(){
 		
 		String score="";
 		

@@ -28,7 +28,7 @@ public class TennisGame {
 	
 	public String getState(){ return this.state;}	
 	
-	public void setState(String state) {
+	 void setState(String state) {
 		
 		this.state = state;
 	}
@@ -54,7 +54,9 @@ public class TennisGame {
 	 * @param goaler: player who score
 	 * @param loser: unliky player
 	 */
-	public void playSet(Player goaler, Player loser){
+	public void playSet(Player goaler, Player loser) throws EndOfGameException{
+		
+		checkEndOfGame();
 		
 		switch(goaler.getScore()){
 		
@@ -75,23 +77,7 @@ public class TennisGame {
 		
 		case TennisScore.FORTY:
 			
-			if(this.state==TennisStatus.DEUCE){
-				
-				goaler.setScore(TennisScore.ADVANTAGE);
-				loser.setScore(TennisScore.FORTY);
-				
-				this.state=TennisStatus.RUNNING;
-				
-			}else if(loser.getScore()==TennisScore.ADVANTAGE){
-				
-				loser.setScore(TennisScore.FORTY);
-				
-				
-			}else{
-				
-				setState(TennisStatus.END);
-				goaler.setScore(TennisScore.WINNER);
-			}
+				fortyHandler(goaler, loser);
 			
 			break;
 		
@@ -99,8 +85,6 @@ public class TennisGame {
 			
 			setState(TennisStatus.END);
 			goaler.setScore(TennisScore.WINNER);
-			
-		default:
 			break;
 			
 		}
@@ -120,6 +104,42 @@ public class TennisGame {
 			
 			setState(TennisStatus.DEUCE);
 			
+		}
+	}
+	
+	/**
+	 * check if a game is ended
+	 */
+	public void checkEndOfGame() throws EndOfGameException{
+		
+		if(this.state==TennisStatus.END){
+			
+			throw new EndOfGameException();
+		}
+	}
+	
+	/**
+	 * handle eventuality a player has forty points and scores
+	 * 
+	 */
+	public void fortyHandler(Player goaler, Player loser){
+		
+		if(this.state==TennisStatus.DEUCE){
+			
+			goaler.setScore(TennisScore.ADVANTAGE);
+			loser.setScore(TennisScore.FORTY);
+			
+			this.state=TennisStatus.RUNNING;
+			
+		}else if(loser.getScore()==TennisScore.ADVANTAGE){
+			
+			loser.setScore(TennisScore.FORTY);
+			
+			
+		}else{
+			
+			setState(TennisStatus.END);
+			goaler.setScore(TennisScore.WINNER);
 		}
 	}
 	
@@ -153,9 +173,6 @@ public class TennisGame {
 					
 					message+=p2.printScore();
 				}
-				break;
-				
-			default:
 				break;
 			
 		}
