@@ -7,6 +7,7 @@ public class Player {
 	private Score score;
 	private static int count = 0;
 	private int id = 0;
+
 	
 	public Player()
 	{
@@ -35,6 +36,8 @@ public class Player {
 	public int getId(){
 		return id;
 	}
+
+
 	
 	
 }
