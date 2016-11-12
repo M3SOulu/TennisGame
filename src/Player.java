@@ -8,7 +8,7 @@ public class Player{
 	private int score;
 	
 	public Player(String name){
-	    this.name = name;
+	    this.setName(name);
 	}
 	 
     
@@ -22,7 +22,11 @@ public class Player{
     }
 
     public void winPoint() {
-        this.score++;
+        this.score = this.score + 1;
+    }
+    
+    void setName(String name){
+    	this.name = name;
     }
     
     public String getScoreDescription(){

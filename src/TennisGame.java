@@ -2,12 +2,12 @@
 public class TennisGame {
 
 	private Player player1;
-	private Player player2;
-	
-	TennisGame(String name1, String name2){
-		player1 = new Player(name1);
-		player2 = new Player(name2);
-	}
+    private Player player2;
+ 
+    public TennisGame(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+    }
 	
 	public String getScore() {
         if (player1.getScore() >= 3 && player2.getScore() >= 3) {
@@ -24,7 +24,7 @@ public class TennisGame {
             	}
             }
         } else {
-            return player1.getScoreDescription() + ", " + player2.getScoreDescription();
+            return player1.getScoreDescription() + " - " + player2.getScoreDescription();
         }
     }
 	
