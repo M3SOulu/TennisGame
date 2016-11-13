@@ -3,21 +3,13 @@
  * Tennis single Score
  *
  */
-public class Score implements Comparable<Score>{
-	private int score;
-	
-	private final static int MIN_SCORE = 0;
-	private final static int MAX_SCORE = 3;
+public class Score{
+	private int score = 0;
 	
 	/**
 	 * create a new Score
-	 * @param score
-	 * @throws InvalidScoreException
 	 */
-	public Score( int score ) throws InvalidScoreException
-	{
-		setScore(score);
-	}
+	public Score(){}
 
 	/**
 	 * 
@@ -28,17 +20,11 @@ public class Score implements Comparable<Score>{
 	}
 	
 	/**
-	 * 
-	 * @param score
-	 * @throws InvalidScoreException
+	 * increment score of one point
 	 */
-	public void setScore( int score ) throws InvalidScoreException
+	public void incrementScore() 
 	{
-		if( score < MIN_SCORE || score > MAX_SCORE ){
-			throw new InvalidScoreException();
-		}
-		
-		this.score = score;
+		score++;
 	}
 	
 	@Override
@@ -60,42 +46,6 @@ public class Score implements Comparable<Score>{
 		}
 		
 		return stringScore;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + score;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Score other = (Score) obj;
-		if (score != other.score)
-			return false;
-		return true;
-	}
-
-	@Override
-	public int compareTo( Score score2 ) {
-		// TODO Auto-generated method stub
-		if( score > score2.getScore() ){
-			return 1;
-		}
-		else if( score == score2.getScore() ){
-			return 0;
-		}
-		else{
-			return -1;
-		}
 	}
 
 	

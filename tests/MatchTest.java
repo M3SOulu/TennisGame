@@ -14,16 +14,7 @@ public class MatchTest {
 	public void testCreateNewMatchWithPlayer() throws InvalidPlayerException
 	{
 		Match m = new Match( new Player(), new Player() );
-		assertEquals( 0, m.getWinnerPointsPlayer1() );
-		assertEquals( 0, m.getWinnerPointsPlayer2() );
-	}
-	
-	@Test
-	public void testCreateNewMatchWithPlayerAlreadyPlayed() throws InvalidPlayerException, InvalidScoreException
-	{
-		Match m = new Match( new Player( new Score( 0 ) ), new Player( new Score( 1 ) ) );
-		assertEquals( 0, m.getWinnerPointsPlayer1() );
-		assertEquals( 1, m.getWinnerPointsPlayer2() );
+		assertEquals( false, m.isWon() );
 	}
 	
 }

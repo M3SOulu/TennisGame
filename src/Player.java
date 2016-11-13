@@ -4,7 +4,7 @@
  *
  */
 public class Player {
-	private Score score;
+	private Score score = new Score();
 	
 	private static int count = 0;
 	private int id = 0;
@@ -20,65 +20,44 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param score
-	 * @throws InvalidScoreException
+	 * @return score
 	 */
-	public Player( Score score ) throws InvalidScoreException
+	public int getScore()
 	{
-		this();
-		setScore( score );
+		return score.getScore();
+	}
+	
+	/**
+	 * 
+	 * @return player id
+	 */
+	public int getId()
+	{
+		return id;
 	}
 
 	/**
-	 * 
-	 * @return player score
+	 * increment player score
 	 */
-	public Score getScore() {
-		return score;
+	public void incrementScore() {
+		score.incrementScore();
 	}
-
+	
 	/**
 	 * 
-	 * @param score
-	 * @throws InvalidScoreException
+	 * @return string score
 	 */
-	public void setScore( Score score ) throws InvalidScoreException {
-		if( score == null ){
-			throw new InvalidScoreException();
-		}
-		
-		this.score = score;
+	public String getScoreString()
+	{
+		return score.toString();
 	}
+	
 	
 	@Override
 	public String toString(){
 		return "Player" + id;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals( Object obj ) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		
-		Player other = (Player) obj;
-		if ( id != other.id )
-			return false;
-		return true;
-	}
-	
-	
-	
 	
 }
