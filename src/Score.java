@@ -41,7 +41,7 @@ public class Score{
 		else if( score == 2 ){
 			stringScore = "30";
 		}
-		else if( score == 3 ){
+		else{
 			stringScore = "40";
 		}
 		

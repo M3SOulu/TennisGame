@@ -44,7 +44,7 @@ public class ScoreTest {
 		s.incrementScore();
 		s.incrementScore();
 		s.incrementScore();
-		assertEquals( true, s.toString().isEmpty() );
+		assertEquals( "40", s.toString() );
 	}
 	
 }
