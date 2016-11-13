@@ -32,10 +32,8 @@ public class PlayerTest {
 	
 	@Test
 	public void equalPlayerTest(){
-		//Arrange
-		Player p2 = new Player(p.getName());
-		
 		//Act
+		Player p2 = new Player(p.getName());
 		
 		//Assert
 		assertTrue("I giocatori sono uguali", p.equals(p2)==true);

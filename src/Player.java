@@ -16,7 +16,7 @@ public class Player {
 	}
 	
 	int getScore(){
-		return this.score;
+		return score;
 	}
 	String getName(){
 		return this.name;
