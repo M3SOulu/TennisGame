@@ -4,34 +4,26 @@ import org.junit.Test;
 
 public class MatchTest {
 
-	@Test
-	public void testGetWinner1() 
-			throws InvalidScoreException, InvalidPlayerException 
+	@Test (expected = InvalidPlayerException.class)
+	public void testCreateNewMatchWithoutPlayer() throws InvalidPlayerException
 	{
-		Player p1 = new Player( new Score( 1 ) );
-		Player p2 = new Player( new Score( 0 ) );
-		Match p = new Match( p1, p2 );
-		assertEquals(p.getWinner(), p1);
+		Match m = new Match( null, null );
 	}
 	
 	@Test
-	public void testGetWinner2() 
-			throws InvalidScoreException, InvalidPlayerException 
+	public void testCreateNewMatchWithPlayer() throws InvalidPlayerException
 	{
-		Player p1 = new Player( new Score( 0 ) );
-		Player p2 = new Player( new Score( 1 ) );
-		Match p = new Match( p1, p2 );
-		assertEquals(p.getWinner(), p2);
+		Match m = new Match( new Player(), new Player() );
+		assertEquals( 0, m.getWinnerPointsPlayer1() );
+		assertEquals( 0, m.getWinnerPointsPlayer2() );
 	}
 	
 	@Test
-	public void testGetWinner3() 
-			throws InvalidScoreException, InvalidPlayerException 
+	public void testCreateNewMatchWithPlayerAlreadyPlayed() throws InvalidPlayerException, InvalidScoreException
 	{
-		Player p1 = new Player( new Score( 0 ) );
-		Player p2 = new Player( new Score( 0 ) );
-		Match p = new Match( p1, p2 );
-		assertEquals(p.getWinner(), null);
+		Match m = new Match( new Player( new Score( 0 ) ), new Player( new Score( 1 ) ) );
+		assertEquals( 0, m.getWinnerPointsPlayer1() );
+		assertEquals( 1, m.getWinnerPointsPlayer2() );
 	}
 	
 }

@@ -9,22 +9,39 @@ public class Player {
 	private static int count = 0;
 	private int id = 0;
 	
-	private Player()
+	/**
+	 * set an incremental id to player
+	 */
+	public Player()
 	{
 		count++;
 		id = count;
 	}
 	
+	/**
+	 * 
+	 * @param score
+	 * @throws InvalidScoreException
+	 */
 	public Player( Score score ) throws InvalidScoreException
 	{
 		this();
 		setScore( score );
 	}
 
+	/**
+	 * 
+	 * @return player score
+	 */
 	public Score getScore() {
 		return score;
 	}
 
+	/**
+	 * 
+	 * @param score
+	 * @throws InvalidScoreException
+	 */
 	public void setScore( Score score ) throws InvalidScoreException {
 		if( score == null ){
 			throw new InvalidScoreException();
@@ -33,6 +50,7 @@ public class Player {
 		this.score = score;
 	}
 	
+	@Override
 	public String toString(){
 		return "Player" + id;
 	}

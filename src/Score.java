@@ -9,15 +9,29 @@ public class Score implements Comparable<Score>{
 	private final static int MIN_SCORE = 0;
 	private final static int MAX_SCORE = 3;
 	
+	/**
+	 * create a new Score
+	 * @param score
+	 * @throws InvalidScoreException
+	 */
 	public Score( int score ) throws InvalidScoreException
 	{
 		setScore(score);
 	}
 
+	/**
+	 * 
+	 * @return score
+	 */
 	public int getScore() {
 		return score;
 	}
 	
+	/**
+	 * 
+	 * @param score
+	 * @throws InvalidScoreException
+	 */
 	public void setScore( int score ) throws InvalidScoreException
 	{
 		if( score < MIN_SCORE || score > MAX_SCORE ){
@@ -27,6 +41,7 @@ public class Score implements Comparable<Score>{
 		this.score = score;
 	}
 	
+	@Override
 	public String toString()
 	{
 		String stringScore = "";
