@@ -32,7 +32,7 @@ public class TennisGame {
 			stringa = stringa + player1.getScoreString()+" - "+player2.getScoreString();
 		}
 		return stringa;
-	}
+	} 
 	
 	Player getLeadPlayer() throws SameScoreSoNotLeadPlayerException{
 		if(player1.getScore()==player2.getScore()){
