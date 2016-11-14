@@ -27,35 +27,38 @@ public class Match {
 
 	}
 
-	public String addPoint(Point p) throws IllegalPlayerPoint, InvalidScoreException {
+	public String addPoint(Point p) throws IllegalPlayerPoint, InvalidScoreException, IllegalMatchStateException {
 
 		checkPlayer(p.getPlayer1(), p.getPlayer2());
 		checkHowWon(p);
 		String state = "";
 
-		if (!isWon()) {
-
-			state = player1.getScore().toString() + "-" + player2.getScore().toString();
-
-		} else if (player1.getScoreInt() == player2.getScoreInt() && countP1 == 3 && countP2 == 3) {
-
-			state = "deuce";
-
-		} else if (countP1 == 3 && countP2 == 3 && player1.getScoreInt() == (player2.getScoreInt() + 1)) {
+		if (countP1 == (countP2 + 1) && countP1 >= 3 && countP2 >= 3) {
 
 			state = "advantage - " + player2.getScore().toString();
 
-		} else if (countP1 == 3 && countP2 == 3 && player2.getScoreInt() == (player1.getScoreInt() + 1)) {
+		} else if (countP2 == (countP1 + 1) && countP1 >= 3 && countP2 >= 3) {
 
 			state = player1.getScore().toString() + " - advantage";
 
-		} else if (countP1 == 4 && countP1 >= (countP2 + 2)) {
+		} else if (countP1 >= 4 && countP1 >= (countP2 + 2)) {
 
 			state = "player 1 wins";
 
-		} else if (countP2 == 4 && countP2 >= (countP1 + 2)) {
+		} else if (countP2 >= 4 && countP2 >= (countP1 + 2)) {
 
 			state = "player 2 wins";
+
+		} else if (player1.getScoreInt() == player2.getScoreInt() && countP1 >= 3 && countP2 >= 3) {
+			
+			state = "deuce";
+		
+		} else if (!isWon()) {
+
+			state = player1.getScore().toString() + "-" + player2.getScore().toString();
+
+		} else{
+			throw new IllegalMatchStateException();
 		}
 
 		return state;
@@ -65,17 +68,25 @@ public class Match {
 	private void checkHowWon(Point p) throws InvalidScoreException {
 		if (p.getWinner() == player1.getId()) {
 			if (player1.getScoreInt() >= 3) {
+
 				countP1++;
+
 			} else {
+
 				player1.setScore(new Score(player1.getScoreInt() + 1));
+
 				countP1++;
 			}
 
-		} else {
+		} else if (p.getWinner() == player2.getId()) {
 			if (player2.getScoreInt() >= 3) {
+
 				countP2++;
+
 			} else {
+
 				player2.setScore(new Score(player2.getScoreInt() + 1));
+
 				countP2++;
 			}
 

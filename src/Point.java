@@ -30,9 +30,9 @@ public class Point {
 		return player2;
 	}
 
-	public void setWinner(Player p) throws InvalidPlayerException {
+	public void setWinner(Player p) throws IllegalPlayerPoint {
 		if (!(p == player1) && !(p == player2)) {
-			throw new InvalidPlayerException();
+			throw new IllegalPlayerPoint();
 		} else {
 			IdWinner = p.getId();
 		}
