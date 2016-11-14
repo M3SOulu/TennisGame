@@ -3,6 +3,7 @@ public class Match {
 	private Player player2;
 	private int countP1;
 	private int countP2;
+	private boolean matchWin = false;
 
 	public Match(Point p) throws InvalidScoreException {
 		player1 = p.getPlayer1();
@@ -10,8 +11,15 @@ public class Match {
 		checkHowWon(p);
 	}
 
-	public boolean isWon() {
-		if (!(countP1 == 4) && !(countP2 == 4)) {
+	private void isAlreadyWin() throws AlreadyWonMatchException {
+		if (matchWin) {
+			throw new AlreadyWonMatchException();
+		}
+	}
+
+	public boolean isWon() throws AlreadyWonMatchException {
+		isAlreadyWin();
+		if (!(countP1 >= 4) && !(countP2 >= 4)) {
 
 			return false;
 
@@ -21,44 +29,53 @@ public class Match {
 			return false;
 
 		} else {
-
+			matchWin = true;
 			return true;
 		}
 
 	}
 
-	public String addPoint(Point p) throws IllegalPlayerPoint, InvalidScoreException, IllegalMatchStateException {
+	public String addPoint(Point p)
+			throws IllegalPlayerPoint, InvalidScoreException, IllegalMatchStateException, AlreadyWonMatchException {
 
 		checkPlayer(p.getPlayer1(), p.getPlayer2());
 		checkHowWon(p);
 		String state = "";
+		isWon();
 
-		if (countP1 == (countP2 + 1) && countP1 >= 3 && countP2 >= 3) {
+		if (!matchWin) {
+			if (countP1 == (countP2 + 1) && countP1 >= 3 && countP2 >= 3) {
 
-			state = "advantage - " + player2.getScore().toString();
+				state = "advantage - " + player2.getScore().toString();
 
-		} else if (countP2 == (countP1 + 1) && countP1 >= 3 && countP2 >= 3) {
+			} else if (countP2 == (countP1 + 1) && countP1 >= 3 && countP2 >= 3) {
 
-			state = player1.getScore().toString() + " - advantage";
+				state = player1.getScore().toString() + " - advantage";
 
-		} else if (countP1 >= 4 && countP1 >= (countP2 + 2)) {
+			} else if (player1.getScoreInt() == player2.getScoreInt() && countP1 >= 3 && countP2 >= 3) {
 
-			state = "player 1 wins";
+				state = "deuce";
 
-		} else if (countP2 >= 4 && countP2 >= (countP1 + 2)) {
+			} else {
+				state = player1.getScore().toString() + "-" + player2.getScore().toString();
+			}
 
-			state = "player 2 wins";
+		} else if (matchWin) {
+			if (countP1 >= 4 && countP1 >= (countP2 + 2)) {
 
-		} else if (player1.getScoreInt() == player2.getScoreInt() && countP1 >= 3 && countP2 >= 3) {
+				state = "player 1 wins";
+
+			} else if (countP2 >= 4 && countP2 >= (countP1 + 2)) {
+
+				state = "player 2 wins";
+
+			}
+		}
+
+		else {
 			
-			state = "deuce";
-		
-		} else if (!isWon()) {
-
-			state = player1.getScore().toString() + "-" + player2.getScore().toString();
-
-		} else{
 			throw new IllegalMatchStateException();
+		
 		}
 
 		return state;
