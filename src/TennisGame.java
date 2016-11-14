@@ -3,7 +3,7 @@ public class TennisGame {
 	private Player player1;
 	private Player player2;
 	
-	TennisGame() {
+	public TennisGame() {
 		this.player1 = new Player();
 		this.player2 = new Player();
 	}
