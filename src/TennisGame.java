@@ -1,49 +1,24 @@
 
 public class TennisGame {
-	private Player player1;
-	private Player player2;
-	private int point;
 	
-	TennisGame() {
-		player1 = new Player();
-		player2 = new Player();
-		point = 0;
-	}
-	
-	String addScore(int p) {
-		String whoScores = "";
-		if(p == 1) {
-			if(player1.getScore() <= 30){
-				player1.setScore(15);
-				player1.setPointWin();
-				whoScores = "player1 scores > Scores: " + convertScore(player1.getScore()) + " - " + ;
-			} else {
-				player1.setScore(10);
-				player1.setPointWin();
-				whoScores = "player1 scores > Scores: ";
-			}
-		} else if(p == 2) {
-			if(player2.getScore() <= 30){
-				player2.setScore(15);
-				player2.setPointWin();
-				whoScores = "player2 scores > Scores: ";
-			} else {
-				player2.setScore(10);
-				player2.setPointWin();
-				whoScores = "player2 scores > Scores: ";
-			}
-		}
-		
-		return whoScores;
-	}
-	
-	String convertScore(int score) {
-		String convertedScore = "";
+	public String convertScores(int score) throws InvalidScoreException {
+		String result = "";
 		
 		if(score == 0) {
-			convertedScore = "love";
-		} else if(score > 40) {
-			convertedScore = "adv";
+			result = "love";
+		} else if(score == 1) {
+			result = "15";
+		} else if(score == 2) {
+			result = "30";
+		} else if(score == 3) {
+			result = "40";
+		} else if(score > 3){
+			result = "advantage";
+		} else {
+			throw new InvalidScoreException();
 		}
+		
+		return result;
 	}
+	
 }
