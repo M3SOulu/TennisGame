@@ -4,7 +4,7 @@ public class Match {
 	private int countP1;
 	private int countP2;
 
-	public Match(Point p) {
+	public Match(Point p) throws InvalidScoreException {
 		player1 = p.getPlayer1();
 		player2 = p.getPlayer2();
 		checkHowWon(p);
@@ -16,8 +16,7 @@ public class Match {
 			return false;
 
 		}
-		if (!(countP1 >= (countP2 + 2))
-				&& !(countP2 >= (countP1 + 2))) {
+		if (!(countP1 >= (countP2 + 2)) && !(countP2 >= (countP1 + 2))) {
 
 			return false;
 
@@ -28,7 +27,7 @@ public class Match {
 
 	}
 
-	public String addPoint(Point p) throws IllegalPlayerPoint {
+	public String addPoint(Point p) throws IllegalPlayerPoint, InvalidScoreException {
 
 		checkPlayer(p.getPlayer1(), p.getPlayer2());
 		checkHowWon(p);
@@ -36,7 +35,7 @@ public class Match {
 
 		if (!isWon()) {
 
-			state = player1.toString() + "-" + player2.toString();
+			state = player1.getScore().toString() + "-" + player2.getScore().toString();
 
 		} else if (player1.getScoreInt() == player2.getScoreInt() && countP1 == 3 && countP2 == 3) {
 
@@ -44,11 +43,11 @@ public class Match {
 
 		} else if (countP1 == 3 && countP2 == 3 && player1.getScoreInt() == (player2.getScoreInt() + 1)) {
 
-			state = "advantage - " + player2.toString();
+			state = "advantage - " + player2.getScore().toString();
 
 		} else if (countP1 == 3 && countP2 == 3 && player2.getScoreInt() == (player1.getScoreInt() + 1)) {
 
-			state = player1.toString() + " - advantage";
+			state = player1.getScore().toString() + " - advantage";
 
 		} else if (countP1 == 4 && countP1 >= (countP2 + 2)) {
 
@@ -63,14 +62,22 @@ public class Match {
 
 	}
 
-	private void checkHowWon(Point p) {
-		if (p.getWinner() == player1) {
-
-			countP1++;
+	private void checkHowWon(Point p) throws InvalidScoreException {
+		if (p.getWinner() == player1.getId()) {
+			if (player1.getScoreInt() >= 3) {
+				countP1++;
+			} else {
+				player1.setScore(new Score(player1.getScoreInt() + 1));
+				countP1++;
+			}
 
 		} else {
-
-			countP2++;
+			if (player2.getScoreInt() >= 3) {
+				countP2++;
+			} else {
+				player2.setScore(new Score(player2.getScoreInt() + 1));
+				countP2++;
+			}
 
 		}
 
@@ -84,4 +91,5 @@ public class Match {
 		}
 
 	}
+
 }

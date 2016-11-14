@@ -6,6 +6,7 @@
 public class Point {
 	private Player player1;
 	private Player player2;
+	private int IdWinner;
 
 	public Point(Player player1, Player player2) throws InvalidPlayerException {
 		if (player1 == null || player2 == null) {
@@ -17,20 +18,8 @@ public class Point {
 
 	}
 
-	public Player getWinner() {
-		if ((player1.getScoreInt() - player2.getScoreInt()) > 0) {
-
-			return player1;
-
-		} else if ((player1.getScoreInt() - player2.getScoreInt()) < 0) {
-
-			return player2;
-		}
-
-		else {
-
-			return null;
-		}
+	public int getWinner() {
+		return IdWinner;
 	}
 
 	public Player getPlayer1() {
@@ -39,6 +28,14 @@ public class Point {
 
 	public Player getPlayer2() {
 		return player2;
+	}
+
+	public void setWinner(Player p) throws InvalidPlayerException {
+		if (!(p == player1) && !(p == player2)) {
+			throw new InvalidPlayerException();
+		} else {
+			IdWinner = p.getId();
+		}
 	}
 
 }

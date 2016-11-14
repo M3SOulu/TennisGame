@@ -15,6 +15,7 @@ public class Player {
 		id = count;
 	}
 	
+	
 	public Player( Score score ) throws InvalidScoreException
 	{
 		this();
@@ -35,6 +36,10 @@ public class Player {
 	
 	public int getId(){
 		return id;
+	}
+	
+	public Score getScore(){
+		return score;
 	}
 
 
