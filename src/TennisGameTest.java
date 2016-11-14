@@ -43,4 +43,59 @@ public class TennisGameTest {
 	public void invalidScore() throws InvalidScoreException {
 		assertEquals(tennisGame.convertScores(-1), "buongiornissimo, caffeeeeeee");
 	}
+	
+	@Test
+	public void initialIsLove() throws InvalidScoreException {
+		assertEquals(tennisGame.systemScore(), "Initial love - love");
+	}
+	
+	@Test(expected = InvalidPlayerException.class)
+	public void assignScoreToPlayer1ThatWins() throws InvalidScoreException, InvalidPlayerException {
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 15 - love");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 30 - love");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: player1 wins");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: player1 wins");
+	}
+	
+	@Test(expected = InvalidPlayerException.class)
+	public void assignScoreToPlayer2ThatWins() throws InvalidScoreException, InvalidPlayerException {
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: love - 15");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: love - 30");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: player2 wins");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: player2 wins");
+	}
+	
+	@Test
+	public void playersTie() throws InvalidScoreException, InvalidPlayerException {
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 15 - love");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 15 - 15");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 30 - 15");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 30 - 30");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 40 - 30");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: deuce");
+	}
+	
+	@Test
+	public void player1WinsAfterTied() throws InvalidScoreException, InvalidPlayerException {
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 15 - love");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 15 - 15");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 30 - 15");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 30 - 30");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 40 - 30");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: deuce");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: advantage - 40");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: player1 wins");
+	}
+	
+	@Test
+	public void player2WinsAfterTied() throws InvalidScoreException, InvalidPlayerException {
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 15 - love");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 15 - 15");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 30 - 15");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 30 - 30");
+		assertEquals(tennisGame.assignScore(1), "player1 scores > Score: 40 - 30");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: deuce");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: 40 - advantage");
+		assertEquals(tennisGame.assignScore(2), "player2 scores > Score: player2 wins");
+	}
 }

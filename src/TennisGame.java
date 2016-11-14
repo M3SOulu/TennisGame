@@ -27,10 +27,10 @@ public class TennisGame {
 	public String systemScore() throws InvalidScoreException {
 		String result = null;
 		
-		if(player1.getScore() == 3 && (player1.getScore() - player2.getScore()) == 2) {
+		if(player1.getScore() >= 3 && (player1.getScore() - player2.getScore()) >= 2) {
 			player1.setIsWinner(true);
 			result = "Score: player1 wins";
-		} else if(player2.getScore() == 3 && (player2.getScore() - player1.getScore()) == 2) {
+		} else if(player2.getScore() >= 3 && (player2.getScore() - player1.getScore()) >= 2) {
 			player2.setIsWinner(true);
 			result = "Score: player2 wins";
 		} else if(player1.getScore() == 3 && player2.getScore() == 3 && player1.getScore() == player2.getScore()) {
