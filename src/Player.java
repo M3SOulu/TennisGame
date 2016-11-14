@@ -1,22 +1,16 @@
 
 public class Player {
 	private int score;
-	private int pointWin;
+	
+	Player() {
+		this.score = 0;
+	}
 	
 	int getScore() {
 		return this.score;
 	}
 	
-	int getPointWin() {
-		return this.pointWin;
+	void addScore() {
+		this.score++;
 	}
-	
-	void setScore(int score) {
-		this.score += score;
-	}
-	
-	void setPointWin() {
-		pointWin++;
-	}
-	
 }
