@@ -1,26 +1,31 @@
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-public class MatchTest {
+public class TennisGameTest {
 
 	@Test
 	public void testSimplyPlayWinner1() throws InvalidPlayerException, InvalidScoreException, IllegalPlayerPoint, IllegalMatchStateException, AlreadyWonMatchException{
 		Player p1 = new Player(new Score(0));
 		Player p2 = new Player(new Score(0));
 		Point po = new Point(p1, p2);
-		po.setWinner(p1);
-		Match m = new Match(po);
+		
+		
+		
 		Point po1 = new Point(p1, p2);
 		Point po2 = new Point(p1, p2);
 		Point po3 = new Point(p1, p2);
 		Point po4 = new Point(p1, p2);
+		
+		po.setWinner(p1);
 		po1.setWinner(p2);
 		po2.setWinner(p1);
 		po3.setWinner(p1);
 		po4.setWinner(p1);
 		
+		TennisGame m = new TennisGame(po);
+		assertEquals("15-love", m.addPoint(po));
 		assertEquals("15-15", m.addPoint(po1)); 
 		assertEquals("30-15", m.addPoint(po2));
 		assertEquals("40-15", m.addPoint(po3));
@@ -38,7 +43,7 @@ public class MatchTest {
 			Player p2 = new Player(new Score(0));
 			Point po = new Point(p1, p2);
 			po.setWinner(p1);
-			Match m = new Match(po);
+			TennisGame m = new TennisGame(po);
 			Point po1 = new Point(p1, p2);
 			Point po2 = new Point(p1, p2);
 			Point po3 = new Point(p1, p2);
@@ -50,7 +55,8 @@ public class MatchTest {
 			po4.setWinner(p1);
 			po5.setWinner(p1);
 			
-			m.addPoint(po1); 
+			m.addPoint(po);
+			m.addPoint(po1);
 			m.addPoint(po2);
 			m.addPoint(po3);
 			m.addPoint(po4);
@@ -67,7 +73,7 @@ public class MatchTest {
 		Player p2 = new Player(new Score(0));
 		Point po = new Point(p1, p2);
 		
-		Match m = new Match(po);
+		TennisGame m = new TennisGame(po);
 		Point po1 = new Point(p1, p2);
 		Point po2 = new Point(p1, p2);
 		Point po3 = new Point(p1, p2);
@@ -115,7 +121,7 @@ public class MatchTest {
 		Point po8 = new Point(p1, p2);
 		Point po9 = new Point(p1, p2);
 		
-		Match m = new Match(po);
+		TennisGame m = new TennisGame(po);
 		
 		po.setWinner(p1);
 		po1.setWinner(p2);
@@ -151,7 +157,7 @@ public class MatchTest {
 		Player p3 = new Player(new Score(3));
 		Point po = new Point(p1, p2);
 		Point po1  = new Point(p1, p3);
-		Match m = new Match(po);
+		TennisGame m = new TennisGame(po);
 		m.addPoint(po1);
 		
 		}
