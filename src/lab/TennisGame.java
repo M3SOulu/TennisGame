@@ -23,18 +23,22 @@ public class TennisGame {
 			if (this.count1 == 0) {
 				this.score1 = "15";
 				this.count1++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count1 == 1) {
 				this.score1 = "30";
 				this.count1++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count1 == 2) {
 				this.score1 = "40";
 				this.count1++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count1 == 3){
 				this.score1 = "Player1 win";
 				this.count1++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			}
 
@@ -42,28 +46,42 @@ public class TennisGame {
 			if (this.count2 == 0) {
 				this.score2 = "15";
 				this.count2++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count2 == 1) {
 				this.score2 = "30";
 				this.count2++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count2 == 2) {
 				this.score2 = "40";
 				this.count2++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			else if (this.count2 == 3){
 				this.score2 = "Player2 win";
 				this.count2++;
+				this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 			}
 			}
 		 
-		 if(this.count1 ==3){
-			 this.gameResult = "Score: "+this.score1;
+		 if(this.count1 == 3 && this.count2 == 3){
+			 this.gameResult = player + " scores > "+" Score: "+"deuce";
+			 if((this.count1 == this.count2 + 1)){
+				 this.gameResult = player + " scores > "+" Score: "+"advantage" + " - "+ this.score2;
+			 }
 		 }
-		 if(this.count2 ==3){
-			 this.gameResult = "Score: "+this.score2;
-		 }
-		 this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
+		 else if(this.count1 ==3 && this.count2 <2 ){
+				 this.gameResult = "Score: "+this.score1;
+				 this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
+			 }
+		 else if(this.count2 ==3){
+				 this.gameResult = "Score: "+this.score2;
+				 this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
+			 }
+			 
+		 
+		// this.gameResult = player + " scores > "+" Score: "+this.score1 + " - "+ this.score2;
 		 return this.gameResult;
 	}
 	}
