@@ -12,4 +12,8 @@ public String getPlayer(){
 	return this.player;
 }
 
+public void setPlayer(String new_player){
+	this.player = new_player;
+}
+
 }

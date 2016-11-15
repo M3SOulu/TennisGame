@@ -6,7 +6,7 @@ import org.junit.Before;
 
 import lab.TennisGame;
 
-public class Test {
+public class TestTennisGame {
 
 	String player1 = "player1";
 	String player2 = "player2";
